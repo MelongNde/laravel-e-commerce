@@ -44,7 +44,9 @@
                                 <i class="fas fa-shopping-cart"></i>
 
                                 <div class="badge badge-dark">
-                                    {{Cart::session(auth()->id())->getTotalQuantity()}}
+                                    @auth
+                                        {{Cart::session(auth()->id())->getTotalQuantity()}}
+                                    @endauth
                                 </div>
                             </a>
                         </li>

@@ -35,5 +35,5 @@
 
         <h3>Total price:  {{Cart::session(auth()->id())->getTotal()}} FCFA</h3>
 
-        <a name="" id="" class="btn btn-primary" href="#" role="button">Proceed to checkout</a>
+        <a name="" id="" class="btn btn-primary" href="{{route('cart.checkout')}}" role="button">Proceed to checkout</a>
 @endsection

@@ -26,4 +26,7 @@ class HomeController extends Controller
         $products = Product::take(20)->get();
         return view('home', ['allProducts' => $products ]);
     }
+
+    
+
 }
