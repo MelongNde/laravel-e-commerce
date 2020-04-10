@@ -95,10 +95,15 @@ class OrderController extends Controller
             $order->items()->attach($item->id, ['price'=> $item->price, 'quantity'=> $item->quantity]);
         }
 
-        dd("Order created", $order);
+
+        //Payment
+
+        if(request('payment_method') == 'paypal'){
+            return redirect()->route('paypal.checkout');
+        }
         //empty cart
 
-        \Cart::session(auth()->id())->clear();
+       // \Cart::session(auth()->id())->clear();
 
         return 'Order completed thank you for order';
 
