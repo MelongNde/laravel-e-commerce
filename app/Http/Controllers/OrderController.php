@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Order;
-use Darryldecode\Cart\Cart;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -36,8 +35,6 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $request->validate([
             'shipping_fullname' => 'required',
             'shipping_state' => 'required',
@@ -96,16 +93,19 @@ class OrderController extends Controller
         }
 
 
-        //Payment
+        //payment
+        if(request('payment_method') == 'paypal') {
+                //redirect to paypal
+            return redirect()->route('paypal.checkout', $order->id);
 
-        if(request('payment_method') == 'paypal'){
-            return redirect()->route('paypal.checkout');
         }
+
         //empty cart
+        \Cart::session(auth()->id())->clear();
+        //send email to customer
 
-       // \Cart::session(auth()->id())->clear();
 
-        return 'Order completed thank you for order';
+        return redirect()->route('home')->withMessage('Order has been placed');
 
     }
 
